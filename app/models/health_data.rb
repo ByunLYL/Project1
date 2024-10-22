@@ -5,5 +5,10 @@ class HealthData < ApplicationRecord
   # A region in HealthData can have multiple weather records (cities)
   has_many :weathers, dependent: :destroy
 
-  validates :region, :year, :disease_prevalence, :vaccination_rate, :healthcare_availability, presence: true
+  # Validations
+  validates :region, presence: true, length: { maximum: 100 }
+  validates :year, presence: true, numericality: { only_integer: true, greater_than: 2000, less_than: 2100 }
+  validates :disease_prevalence, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :vaccination_rate, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :healthcare_availability, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 end

@@ -5,5 +5,7 @@ class City < ApplicationRecord
 
   has_many :weathers, dependent: :destroy
 
-  validates :name, :state, presence: true
+  # Validations
+  validates :name, presence: true, length: { maximum: 100 }
+  validates :state, presence: true, length: { maximum: 100 }
 end
