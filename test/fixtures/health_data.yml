@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  region: MyString
+  year: 1
+  disease_prevalence: 1.5
+  vaccination_rate: 1.5
+  healthcare_availability: 1
+
+two:
+  region: MyString
+  year: 1
+  disease_prevalence: 1.5
+  vaccination_rate: 1.5
+  healthcare_availability: 1
