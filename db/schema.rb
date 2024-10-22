@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_22_142749) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_22_160231) do
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "fake_cities", force: :cascade do |t|
     t.string "city_name"
     t.string "region"
