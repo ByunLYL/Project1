@@ -12,7 +12,7 @@
   <h2>Health Data</h2>
   <ul>
     <% @health_data.each do |data| %>
-      <li><%= link_to "Health Data for #{data.region} - #{data.year}", health_data_path(data) %></li>
+      <li><%= link_to "Health Data for #{data.region} - #{data.year}", health_datum_path(data) %></li>
     <% end %>
   </ul>
   <%= paginate @health_data %> <!-- Pagination for Health Data -->
