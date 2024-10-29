@@ -25,4 +25,15 @@
     <%= form.submit "Search" %>
   <% end %>
 </ul>
+
+<h2>Hierarchical Search</h2>
+<ul>
+<%= form_with(url: root_path, method: :get, local: true) do |form| %>
+  <%= form.label :query, "Search Cities" %>
+  <%= form.text_field :query %>
+  <%= form.label :region, "Filter by Region" %>
+  <%= form.select :region, HealthData.pluck(:region).uniq, include_blank: true %>
+  <%= form.submit "Search" %>
+<% end %>
+</ul>
 </div>
