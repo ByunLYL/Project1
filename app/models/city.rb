@@ -5,6 +5,7 @@ class City < ApplicationRecord
 
   has_many :weathers, dependent: :destroy
 
+  paginates_per 10
   # Validations
   validates :name, presence: true, length: { maximum: 100 }
   validates :state, presence: true, length: { maximum: 100 }

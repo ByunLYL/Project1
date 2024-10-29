@@ -21,6 +21,11 @@ gem "jbuilder"
 
 gem 'faker'
 
+gem 'kaminari'
+gem 'will_paginate', '~> 3.3'
+
+#pagination
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
