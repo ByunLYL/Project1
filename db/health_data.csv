@@ -1,0 +1,5 @@
+region,year,disease_prevalence,vaccination_rate,healthcare_availability
+North,2022,15.2,80,300
+South,2022,25.0,75,250
+East,2022,10.5,85,400
+West,2022,12.0,90,350

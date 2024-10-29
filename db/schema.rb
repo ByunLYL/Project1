@@ -10,12 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_22_160231) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_22_142800) do
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cities_health_data", id: false, force: :cascade do |t|
+    t.integer "city_id", null: false
+    t.integer "health_datum_id", null: false
   end
 
   create_table "fake_cities", force: :cascade do |t|
@@ -26,11 +31,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_160231) do
   end
 
   create_table "health_data", force: :cascade do |t|
-    t.string "region"
-    t.integer "year"
-    t.float "disease_prevalence"
-    t.float "vaccination_rate"
-    t.integer "healthcare_availability"
+    t.string "region", null: false
+    t.integer "year", null: false
+    t.float "disease_prevalence", null: false
+    t.float "vaccination_rate", null: false
+    t.integer "healthcare_availability", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
