@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>Health Data for <%= @health_data.region %></h1>
+  <p>Year: <%= @health_data.year %></p>
+  <p>Disease Prevalence: <%= @health_data.disease_prevalence %>%</p>
+  <p>Vaccination Rate: <%= @health_data.vaccination_rate %>%</p>
+  <h2>Related City</h2>
+  <p><%= @city.name %>, <%= @city.state %></p>
+</div>

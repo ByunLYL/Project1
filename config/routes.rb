@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
   get 'about', to: 'static_pages#about'
-  resources :cities
-  resources :health_data
+  resources :cities, only: [:show] # 添加对城市显示页面的支持
+  resources :health_data, only: [:show] # 添加对健康数据显示页面的支持
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
