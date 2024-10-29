@@ -16,4 +16,13 @@
     <% end %>
   </ul>
   <%= paginate @health_data %> <!-- Pagination for Health Data -->
+
+  <h2>Search</h2>
+<ul>
+  <%= form_with(url: root_path, method: :get, local: true) do |form| %>
+    <%= form.label :query, "Search Cities" %>
+    <%= form.text_field :query %>
+    <%= form.submit "Search" %>
+  <% end %>
+</ul>
 </div>
