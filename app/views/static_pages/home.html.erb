@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Welcome to Our Data Navigation Site</h1>
+  <h2>Cities</h2>
+  <ul>
+    <% @cities.each do |city| %>
+      <li><%= link_to city.name, city_path(city) %></li>
+    <% end %>
+  </ul>
+  <h2>Health Data</h2>
+  <ul>
+    <% @health_data.each do |data| %>
+      <li><%= link_to "Health Data for #{data.region} - #{data.year}", health_data_path(data) %></li>
+    <% end %>
+  </ul>
+</div>
