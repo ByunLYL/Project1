@@ -1,41 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather in Major Canadian Cities</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container mt-4">
-    <h1 class="text-center">Weather in Major Canadian Cities</h1>
-# <!-- xxxx  -->
-    <%= form_with(url: root_path, method: :get, local: true, class: "mb-4") do |form| %>
-      <div class="row"> <!-- Create a row using Bootstrap grid system -->
-        <div class="col-md-8"> <!-- Use an 8-column wide column to contain the search input box-->
-          <%= form.label :query, "Search City" %>
-          <%= form.text_field :query, class: "form-control" %>
-        </div>
-        <div class="col-md-4"> <!-- Use a 4-column wide column to contain the search button -->
-          <%= form.submit "Search", class: "btn btn-primary mt-4" %>
-        </div>
-      </div> <!-- done -->
-    <% end %>
 
-    <% if @weather_data.any? %> <!-- 5.2 check weather-->
-      <table class="table table-striped mt-3">
+
+<div class="container mt-4">
+  <h1 class="text-center">Weather in Major Canadian Cities</h1>
+
+  <%= form_with(url: root_path, method: :get, local: true, class: "mb-4") do |form| %>
+    <div class="row"> <!-- Create a row using Bootstrap grid system -->
+      <div class="col-md-8">
+        <%= form.label :query, "Search City" %>
+        <%= form.text_field :query, class: "form-control" %>
+      </div>
+      <div class="col-md-4">
+        <%= form.submit "Search", class: "btn btn-primary mt-4" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @weather_data.any? %> <!-- 5.2 check weather-->
+    <table class="table table-striped mt-3">
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Temperature (°C)</th>
+          <th>Humidity </th>
+          <th>Wind Speed (m/s)</th>
+          <th>Weather Conditions</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @weather_data.each do |data| %>
+          <tr>
+            <td><%= data[:city_name] %></td>
+            <td><%= data[:temperature] %></td>
+            <td><%= data[:humidity] %></td>
+            <td><%= data[:wind_speed] %></td>
+            <td><%= data[:weather_condition] %></td>
+            <td><%= data[:timestamp] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= paginate @weather_data %>
+  <% else %>
+    <p class="alert alert-warning">No weather data available.</p> <!-- 5.2 if not show this sentence -->
+  <% end %>
+
+  <% if params[:query].present? %>
+    <h3>Search Result</h3>
+    <% search_results = @weather_data.select { |data| data[:city_name].downcase.include?(params[:query].downcase) } %>
+    <% if search_results.any? %> <!-- 5.2 Check whether the search result exists -->
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>City</th>
             <th>Temperature (°C)</th>
-            <th>Humidity </th>
+            <th>Humidity</th>
             <th>Wind Speed (m/s)</th>
             <th>Weather Conditions</th>
             <th>Timestamp</th>
           </tr>
         </thead>
         <tbody>
-          <% @weather_data.each do |data| %>
+          <% search_results.each do |data| %>
             <tr>
               <td><%= data[:city_name] %></td>
               <td><%= data[:temperature] %></td>
@@ -47,46 +74,11 @@
           <% end %>
         </tbody>
       </table>
-
-      <%= paginate @weather_data %>
     <% else %>
-      <p class="alert alert-warning">No weather data available.</p> <!-- 5.2 if not show this sentence -->
+      <p class="alert alert-info">No results found for "<%= params[:query] %>".</p> <!-- for nothing -->
     <% end %>
+  <% end %>
+</div>
 
-    <% if params[:query].present? %>
-      <h3>Search Result</h3>
-      <% search_results = @weather_data.select { |data| data[:city_name].downcase.include?(params[:query].downcase) } %>
-      <% if search_results.any? %> <!-- 5.2 Check whether the search result exists -->
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>City</th>
-              <th>Temperature (°C)</th>
-              <th>Humidity</th>
-              <th>Wind Speed (m/s)</th>
-              <th>Weather Conditions</th>
-              <th>Timestamp</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% search_results.each do |data| %>
-              <tr>
-                <td><%= data[:city_name] %></td>
-                <td><%= data[:temperature] %></td>
-                <td><%= data[:humidity] %></td>
-                <td><%= data[:wind_speed] %></td>
-                <td><%= data[:weather_condition] %></td>
-                <td><%= data[:timestamp] %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p class="alert alert-info">No results found for "<%= params[:query] %>".</p> <!-- for nothing -->
-      <% end %>
-    <% end %>
-  </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
