@@ -1,26 +1,34 @@
-<div class="container">
-  <h1>About Our Data Sources</h1>
-  <p>We utilize the following data sources:</p>
-  <ul>
-    <li>1.Weather Data API (OpenWeatherMap API): This dataset provides real-time and historical weather data for cities worldwide. It includes information such as temperature, humidity, wind speed, and weather conditions.</li>
-    <li>2.Public Health Data (Global Health Observatory): This dataset provides health statistics, including disease prevalence, vaccination rates, and healthcare availability by region or country.</li>
-  </ul>
-  <h2>Entity Relationship Diagram (ERD)</h2>
-  <div>
-  <h4>Weather Table:</h4>
-  <li>id: Primary Key (Integer)</li>
-  <li>city_name: String (references geographic region)</li>
-  <li>temperature: Float</li>
-  <li>humidity: Integer</li>
-  <li>wind_speed: Float</li>
-  <li>weather_condition: String</li>
-  <li>timestamp: Datetime (tracks the time of data collection)</li>
-  <h4>Health Data Table</h4>
-  <li>id: Primary Key (Integer)</li>
-  <li>region: String (references geographic region)</li>
-  <li>year: Integer</li>
-  <li>disease_prevalence: Float</li>
-  <li>vaccination_rate: Float</li>
-  <li>healthcare_availability: Integer</li>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en"> <!-- Added lang attribute -->
+<head>
+    <meta charset="UTF-8"> <!-- Added character encoding for better compatibility -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
+    <title>About Our Data Sources</title> <!-- Added title element -->
+</head>
+<body>
+    <div class="container">
+        <h1>About Our Data Sources</h1>
+        <p>We utilize the following data sources:</p>
+        <ul>
+            <li>Weather Data API (OpenWeatherMap API): This dataset provides real-time and historical weather data for cities worldwide. It includes information such as temperature, humidity, wind speed, and weather conditions.</li>
+        </ul>
+        <h2>Entity Relationship Diagram (ERD)</h2>
+        <div>
+            <h4>Weather Table:</h4>
+            <ul> <!-- Changed div to ul to hold the list of fields -->
+                <li>city_name: String (references geographic region)</li>
+                <li>temperature: Float</li>
+                <li>humidity: Integer</li>
+                <li>wind_speed: Float</li>
+                <li>weather_condition: String</li>
+                <li>timestamp: Datetime (tracks the time of data collection)</li>
+            </ul>
+            <h4>City Table</h4>
+            <ul> <!-- Changed div to ul to hold the list of fields -->
+                <li>country: String</li>
+                <li>city_name: String</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

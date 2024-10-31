@@ -1,39 +1,92 @@
-<div class="container">
-  <h1>Welcome to Our Data Navigation Site</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather in Major Canadian Cities</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center">Weather in Major Canadian Cities</h1>
 
-  <h2>Cities</h2>
-  <ul>
-    <% @cities.each do |city| %>
-      <li><%= link_to city.name, city_path(city) %></li>
+    <%= form_with(url: root_path, method: :get, local: true, class: "mb-4") do |form| %>
+      <div class="row"> <!-- 使用Bootstrap的网格系统创建一行 -->
+        <div class="col-md-8"> <!-- 使用8列宽度的列来容纳搜索输入框 -->
+          <%= form.label :query, "Search City" %>
+          <%= form.text_field :query, class: "form-control" %>
+        </div>
+        <div class="col-md-4"> <!-- 使用4列宽度的列来容纳搜索按钮 -->
+          <%= form.submit "Search", class: "btn btn-primary mt-4" %>
+        </div>
+      </div> <!-- 结束Bootstrap行 -->
     <% end %>
-  </ul>
-  <%= paginate @cities %> <!-- Pagination for Cities -->
 
-  <h2>Health Data</h2>
-  <ul>
-    <% @health_data.each do |data| %>
-      <li><%= link_to "Health Data for #{data.region} - #{data.year}", health_datum_path(data) %></li>
+    <% if @weather_data.any? %> <!-- 检查是否有天气数据 -->
+      <table class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>Temperature (°C)</th>
+            <th>Humidity </th>
+            <th>Wind Speed (m/s)</th>
+            <th>Weather Conditions</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @weather_data.each do |data| %>
+            <tr>
+              <td><%= data[:city_name] %></td>
+              <td><%= data[:temperature] %></td>
+              <td><%= data[:humidity] %></td>
+              <td><%= data[:wind_speed] %></td>
+              <td><%= data[:weather_condition] %></td>
+              <td><%= data[:timestamp] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @weather_data %>
+    <% else %>
+      <p class="alert alert-warning">No weather data available.</p> <!-- 提示没有天气数据 -->
     <% end %>
-  </ul>
-  <%= paginate @health_data %> <!-- Pagination for Health Data -->
 
-  <h2>Search</h2>
-<ul>
-  <%= form_with(url: root_path, method: :get, local: true) do |form| %>
-    <%= form.label :query, "Search Cities" %>
-    <%= form.text_field :query %>
-    <%= form.submit "Search" %>
-  <% end %>
-</ul>
+    <% if params[:query].present? %> <!-- 检查搜索查询是否存在 -->
+      <h3>Search Result</h3>
+      <% search_results = @weather_data.select { |data| data[:city_name].downcase.include?(params[:query].downcase) } %>
+      <% if search_results.any? %> <!-- 检查搜索结果是否存在 -->
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>City</th>
+              <th>Temperature (°C)</th>
+              <th>Humidity</th>
+              <th>Wind Speed (m/s)</th>
+              <th>Weather Conditions</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% search_results.each do |data| %>
+              <tr>
+                <td><%= data[:city_name] %></td>
+                <td><%= data[:temperature] %></td>
+                <td><%= data[:humidity] %></td>
+                <td><%= data[:wind_speed] %></td>
+                <td><%= data[:weather_condition] %></td>
+                <td><%= data[:timestamp] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p class="alert alert-info">No results found for "<%= params[:query] %>".</p> <!-- 提示没有找到结果 -->
+      <% end %>
+    <% end %>
+  </div>
 
-<h2>Hierarchical Search</h2>
-<ul>
-<%= form_with(url: root_path, method: :get, local: true) do |form| %>
-  <%= form.label :query, "Search Cities" %>
-  <%= form.text_field :query %>
-  <%= form.label :region, "Filter by Region" %>
-  <%= form.select :region, HealthData.pluck(:region).uniq, include_blank: true %>
-  <%= form.submit "Search" %>
-<% end %>
-</ul>
-</div>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
