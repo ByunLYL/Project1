@@ -9,20 +9,20 @@
 <body>
   <div class="container mt-4">
     <h1 class="text-center">Weather in Major Canadian Cities</h1>
-
+# <!-- xxxx  -->
     <%= form_with(url: root_path, method: :get, local: true, class: "mb-4") do |form| %>
-      <div class="row"> <!-- 使用Bootstrap的网格系统创建一行 -->
-        <div class="col-md-8"> <!-- 使用8列宽度的列来容纳搜索输入框 -->
+      <div class="row"> <!-- Create a row using Bootstrap grid system -->
+        <div class="col-md-8"> <!-- Use an 8-column wide column to contain the search input box-->
           <%= form.label :query, "Search City" %>
           <%= form.text_field :query, class: "form-control" %>
         </div>
-        <div class="col-md-4"> <!-- 使用4列宽度的列来容纳搜索按钮 -->
+        <div class="col-md-4"> <!-- Use a 4-column wide column to contain the search button -->
           <%= form.submit "Search", class: "btn btn-primary mt-4" %>
         </div>
-      </div> <!-- 结束Bootstrap行 -->
+      </div> <!-- done -->
     <% end %>
 
-    <% if @weather_data.any? %> <!-- 检查是否有天气数据 -->
+    <% if @weather_data.any? %> <!-- 5.2 check weather-->
       <table class="table table-striped mt-3">
         <thead>
           <tr>
@@ -50,13 +50,13 @@
 
       <%= paginate @weather_data %>
     <% else %>
-      <p class="alert alert-warning">No weather data available.</p> <!-- 提示没有天气数据 -->
+      <p class="alert alert-warning">No weather data available.</p> <!-- 5.2 if not show this sentence -->
     <% end %>
 
-    <% if params[:query].present? %> <!-- 检查搜索查询是否存在 -->
+    <% if params[:query].present? %>
       <h3>Search Result</h3>
       <% search_results = @weather_data.select { |data| data[:city_name].downcase.include?(params[:query].downcase) } %>
-      <% if search_results.any? %> <!-- 检查搜索结果是否存在 -->
+      <% if search_results.any? %> <!-- 5.2 Check whether the search result exists -->
         <table class="table table-striped">
           <thead>
             <tr>
@@ -82,7 +82,7 @@
           </tbody>
         </table>
       <% else %>
-        <p class="alert alert-info">No results found for "<%= params[:query] %>".</p> <!-- 提示没有找到结果 -->
+        <p class="alert alert-info">No results found for "<%= params[:query] %>".</p> <!-- for nothing -->
       <% end %>
     <% end %>
   </div>
